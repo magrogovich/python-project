@@ -1,3 +1,5 @@
+from pickle import*
+
 class evax:
     cin = ""
     name = ""
@@ -20,7 +22,7 @@ choice = int(input("""
 
 
 def new():
-    with open("data.dat","a") as data:
+    with open("data.dat","ab") as data:
         citizen.cin = input('enter a CIN: ')
         ListNum = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
         ListAlpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
@@ -87,6 +89,8 @@ def new():
         citizen.verif = input("are you infected :")
         while citizen.verif.upper() != "O" and citizen.verif.upper()  != "N":
             citizen.verif = input("are you infected pls:")
+    
+        dump(citizen,data)
 
 if choice == 1:
     new()
