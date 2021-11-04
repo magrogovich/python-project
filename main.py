@@ -95,13 +95,13 @@ def numberOf(citizen):
             male = 0
             female = 0
             for i in range(0,len(data.readlines())-1):
-                if citizen.gender.upper() == 'M':
-                    male = male + 1
-                elif citizen.gender.upper() == 'F':
-                    female = female + 1
+                print(i)
 
             print(f"male is {male} and female is {female}")
 
+
+
+# CALL FOR ALL FUNCTIONS
 
 
 choice = int(input("""
