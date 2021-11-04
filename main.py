@@ -12,13 +12,7 @@ class evax:
 citizen = evax
 
 
-choice = int(input("""
-    1_Nouveau citoyen  
-    2_Nombre de citoyens enregistrés dans le système Evax
-    3_Affichage des citoyens enregistrés par ordre décroissant de l'âge 
-    4_Archivage des citoyens qui ont attrapé le virus
-    5_Quitter le système 
-"""))
+
 
 
 def new():
@@ -91,16 +85,68 @@ def new():
             citizen.verif = input("are you infected pls:")
     
         dump(citizen,data)
+        with open("data.dat","a") as data:
+            data.write('\n')
+
+
+def numberOf(citizen):
+        with open("data.dat","rb") as data:
+            print(len(data.readlines())-1)
+            male = 0
+            female = 0
+            for i in range(0,len(data.readlines())-1):
+                if citizen.gender.upper() == 'M':
+                    male = male + 1
+                elif citizen.gender.upper() == 'F':
+                    female = female + 1
+
+            print(f"male is {male} and female is {female}")
+
+
+
+choice = int(input("""
+    1_Nouveau citoyen  
+    2_Nombre de citoyens enregistrés dans le système Evax
+    3_Affichage des citoyens enregistrés par ordre décroissant de l'âge 
+    4_Archivage des citoyens qui ont attrapé le virus
+    5_Quitter le système 
+"""))
 
 if choice == 1:
     new()
 elif choice == 2:
-    numberOf()
+    numberOf(citizen)
 elif choice == 3:
     orderAge()
 elif choice == 4:
     infected()
 else:
     print("Good by")
+
+while choice != 5:
+
+    choice = int(input("""
+    1_Nouveau citoyen  
+    2_Nombre de citoyens enregistrés dans le système Evax
+    3_Affichage des citoyens enregistrés par ordre décroissant de l'âge 
+    4_Archivage des citoyens qui ont attrapé le virus
+    5_Quitter le système 
+    """))
+
+    if choice == 1:
+        new()
+    elif choice == 2:
+        numberOf(citizen)
+    elif choice == 3:
+        orderAge()
+    elif choice == 4:
+        infected()
+    else:
+        print("Good by")
+
+
+
+
+
 
 
