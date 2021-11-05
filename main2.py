@@ -1,5 +1,6 @@
 from os import lseek, terminal_size
 from pickle import*
+from typing import Type
 
 
 evax = {
@@ -107,13 +108,12 @@ def numberOf(evax,x):
         female = 0
         for i in range (0,int(x)):
             inv = load(data)
-            y = dict(inv)
-            print(inv)
             if inv["sex"].upper() == "M":
                 male = male + 1
             else:
                 female = female + 1
 
+        print(male)
         print(female)
         
 
@@ -122,14 +122,6 @@ def numberOf(evax,x):
 
 
 # CALL FOR ALL FUNCTIONS
-
-
-
-    
-
-
-
-
 
 
 choice = int(input("""
