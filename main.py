@@ -1,4 +1,6 @@
+from os import read
 from pickle import*
+from typing import _VT
 
 class evax:
     cin = ""
@@ -11,7 +13,7 @@ class evax:
 
 citizen = evax
 
-
+v = 0
 
 
 
@@ -113,7 +115,12 @@ choice = int(input("""
 """))
 
 if choice == 1:
-    new()
+    with open("count.txt","r") as count:
+        x = count.read()
+        new()
+        x = x + 1
+        with open("count.txt","w") as count:
+            count.write(x)
 elif choice == 2:
     numberOf(citizen)
 elif choice == 3:
