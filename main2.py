@@ -1,3 +1,4 @@
+from os import lseek, terminal_size
 from pickle import*
 
 
@@ -36,6 +37,12 @@ def new():
 
         evax['name'] = input("enter your name: ")
         testalpha = True
+        # testexist = False
+        # with open("data.dat","rb") as data:
+        #     for i in range (0,int(x)):
+        #         module = load(data)
+        #         if evax['name'] == module['name']:
+        #             testexist = True
         for i in range(0,len(evax['name'])):
             if evax['name'][i] not in ListAlpha:
                 testalpha = False
@@ -43,6 +50,12 @@ def new():
         while testalpha == False or (len(evax['name'])>10 or len(evax['name'])==0):
             evax['name'] = input("enter your name pls: ")
             testalpha = True
+            # testexist = False
+            # with open("data.dat","rb") as data:
+            #     for i in range (0,int(x)):
+            #         module = load(data)
+            #         if evax['name'] == module['name']:
+            #             testexist = False
             for i in range(0,len(evax['name'])):
                 if evax['name'][i] not in ListAlpha:
                     testalpha = False
@@ -90,14 +103,33 @@ def new():
 
 def numberOf(evax,x):
     with open("data.dat","rb") as data:
+        male = 0
+        female = 0
         for i in range (0,int(x)):
             inv = load(data)
+            y = dict(inv)
             print(inv)
+            if inv["sex"].upper() == "M":
+                male = male + 1
+            else:
+                female = female + 1
+
+        print(female)
+        
+
 
 
 
 
 # CALL FOR ALL FUNCTIONS
+
+
+
+    
+
+
+
+
 
 
 choice = int(input("""
