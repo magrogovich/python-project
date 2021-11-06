@@ -1,105 +1,155 @@
-from os import read
+from os import lseek, terminal_size
 from pickle import*
-from typing import _VT
+from typing import Type
 
-class evax:
-    cin = ""
-    name = ""
-    LastName = ""
-    sex = ""
-    age = 0
-    phone = 0
-    verif = ""
 
-citizen = evax
+evax = {
+    "cin":"",
+    "name":"",
+    "LastName":"",
+    "sex":"",
+    "age":0,
+    "phone":0,
+    "verif":"",
+}
 
-v = 0
+
+
 
 
 
 def new():
     with open("data.dat","ab") as data:
-        citizen.cin = input('enter a CIN: ')
+        evax['cin'] = input('enter a CIN: ')
         ListNum = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
         ListAlpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
         test = True
-        for i in range(0,len(citizen.cin)):
-            if (citizen.cin[i] not in ListNum):
+        for i in range(0,len(evax['cin'])):
+            if (evax['cin'][i] not in ListNum):
                 test = False
 
-        while test == False or len(citizen.cin) != 8:
-            citizen.cin = input('enter a CIN pls: ')
+        while test == False or len(evax['cin']) != 8:
+            evax['cin'] = input('enter a CIN pls: ')
             test = True
-            for i in range(0,len(citizen.cin)):
-                if (citizen.cin[i] not in ListNum):
+            for i in range(0,len(evax['cin'])):
+                if (evax['cin'][i] not in ListNum):
                     test = False
 
 
-        citizen.name = input("enter your name: ")
+        evax['name'] = input("enter your name: ")
         testalpha = True
-        for i in range(0,len(citizen.name)):
-            if citizen.name[i] not in ListAlpha:
+
+        for i in range(0,len(evax['name'])):
+            if evax['name'][i] not in ListAlpha:
                 testalpha = False
         
-        while testalpha == False or (len(citizen.name)>10 or len(citizen.name)==0):
-            citizen.name = input("enter your name pls: ")
+        while testalpha == False or (len(evax['name'])>10 or len(evax['name'])==0):
+            evax['name'] = input("enter your name pls: ")
             testalpha = True
-            for i in range(0,len(citizen.name)):
-                if citizen.name[i] not in ListAlpha:
+
+            for i in range(0,len(evax['name'])):
+                if evax['name'][i] not in ListAlpha:
                     testalpha = False
 
-        citizen.LastName = input("enter your lastname: ")
+        evax['LastName'] = input("enter your lastname: ")
         testalpha = True
-        for i in range(0,len(citizen.LastName)):
-            if citizen.LastName[i] not in ListAlpha:
+        for i in range(0,len(evax['LastName'])):
+            if evax['LastName'][i] not in ListAlpha:
                 testalpha = False
         
-        while testalpha == False or (len(citizen.LastName)>10 or len(citizen.LastName)==0):
-            citizen.LastName = input("enter your lastname pls: ")
+        while testalpha == False or (len(evax['LastName'])>10 or len(evax['LastName'])==0):
+            evax['LastName'] = input("enter your lastname pls: ")
             testalpha = True
-            for i in range(0,len(citizen.LastName)):
-                if citizen.LastName[i] not in ListAlpha:
+            for i in range(0,len(evax['LastName'])):
+                if evax['LastName'][i] not in ListAlpha:
                     testalpha = False
 
-        citizen.sex = input("enter gender:")
-        while citizen.sex.upper() != "M" and citizen.sex.upper()  != "F":
-            citizen.sex = input("enter gender pls:")
+        evax['sex'] = input("enter gender:")
+        while evax['sex'].upper() != "M" and evax['sex'].upper()  != "F":
+            evax['sex'] = input("enter gender pls:")
 
-        citizen.age = int(input("enter age:"))
-        while citizen.age < 18:
-            citizen.age = int(input("enter age pls:"))
+        evax['age'] = int(input("enter age:"))
+        while evax['age'] < 18:
+            evax['age'] = int(input("enter age pls:"))
 
-        citizen.phone = input('enter a phone: ')
+        evax['phone'] = input('enter a phone: ')
         testj = True
-        for i in range(0,len(citizen.phone)):
-            if (citizen.phone[i] not in ListNum):
+        for i in range(0,len(evax['phone'])):
+            if (evax['phone'][i] not in ListNum):
                 testj = False
 
-        while testj == False or len(citizen.phone) != 8:
-            citizen.phone = input('enter a phone pls: ')
+        while testj == False or len(evax['phone']) != 8:
+            evax['phone'] = input('enter a phone pls: ')
             testj = True
-            for i in range(0,len(citizen.phone)):
-                if (citizen.phone[i] not in ListNum):
+            for i in range(0,len(evax['phone'])):
+                if (evax['phone'][i] not in ListNum):
                     testj = False
 
-        citizen.verif = input("are you infected :")
-        while citizen.verif.upper() != "O" and citizen.verif.upper()  != "N":
-            citizen.verif = input("are you infected pls:")
+        evax['verif'] = input("are you infected :")
+        while evax['verif'].upper() != "O" and evax['verif'].upper()  != "N":
+            evax['verif'] = input("are you infected pls:")
     
-        dump(citizen,data)
-        with open("data.dat","a") as data:
-            data.write('\n')
+        dump(evax,data)
 
 
-def numberOf(citizen):
-        with open("data.dat","rb") as data:
-            print(len(data.readlines())-1)
-            male = 0
-            female = 0
-            for i in range(0,len(data.readlines())-1):
-                print(i)
+def numberOf(evax,x):
+    with open("data.dat","rb") as data:
+        male = 0
+        female = 0
+        for i in range (0,int(x)):
+            inv = load(data)
+            if inv["sex"].upper() == "M":
+                male = male + 1
+            else:
+                female = female + 1
+        
+        print(f"nember of male citizen {male}")
+        print(f"nember of female citizen {female}")
+        
 
-            print(f"male is {male} and female is {female}")
+print("---------------------------------------------")
+
+def orderAge(x):
+    T = []
+    with open("data.dat","rb") as data:
+        for i in range (0,int(x)):
+            T.append(load(data))
+    print(T)
+
+    test = True
+    while test == True:
+        test = False
+        for i in range(0,int(x)-1):
+            if T[i]["age"] > T[i+1]["age"]:
+                aux = T[i]
+                T[i] = T[i+1]
+                T[i+1] = aux
+                test = True
+
+    print(T)
+    print('---------------------------------------------------')
+
+    for i in range(0,int(x)):
+        with open ("file.dat","ab") as file:
+            dump(T[i],file)
+
+        
+
+
+def infected(x):
+    J = []
+    with open ("file.dat","rb") as file:
+        for i in range(0,int(x)):
+            J.append(load(file))
+
+    with open ("file.txt","a") as file:
+        for i in range(0,int(x)):
+            if J[i]["verif"].upper() == 'O':
+                file.write(J[i]["cin"]+"#"+J[i]["name"]+"#"+str(J[i]["age"])+"\n")
+
+    
+
+        
 
 
 
@@ -118,15 +168,21 @@ if choice == 1:
     with open("count.txt","r") as count:
         x = count.read()
         new()
-        x = x + 1
+        y = int(x) + 1
         with open("count.txt","w") as count:
-            count.write(x)
+            count.write(str(y))
 elif choice == 2:
-    numberOf(citizen)
+    with open("count.txt","r") as count:
+        x = count.read()
+        numberOf(evax,x)
 elif choice == 3:
-    orderAge()
+    with open("count.txt","r") as count:
+        x = count.read()
+        orderAge(x)
 elif choice == 4:
-    infected()
+        with open("count.txt","r") as count:
+            x = count.read()
+            infected(x)
 else:
     print("Good by")
 
@@ -141,13 +197,24 @@ while choice != 5:
     """))
 
     if choice == 1:
-        new()
+        with open("count.txt","r") as count:
+            x = count.read()
+            new()
+            y = int(x) + 1
+            with open("count.txt","w") as count:
+                count.write(str(y))
     elif choice == 2:
-        numberOf(citizen)
+        with open("count.txt","r") as count:
+            x = count.read()
+            numberOf(evax,x)
     elif choice == 3:
-        orderAge()
+        with open("count.txt","r") as count:
+            x = count.read()
+            orderAge(x)
     elif choice == 4:
-        infected()
+        with open("count.txt","r") as count:
+            x = count.read()
+            infected(x)
     else:
         print("Good by")
 
