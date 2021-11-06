@@ -112,12 +112,39 @@ def numberOf(evax,x):
                 male = male + 1
             else:
                 female = female + 1
-
+        
         print(male)
         print(female)
         
 
+print("---------------------------------------------")
 
+def orderAge(x):
+    T = []
+    with open("data.dat","rb") as data:
+        for i in range (0,int(x)):
+            T.append(load(data))
+    print(T)
+
+    test = True
+    while test == True:
+        test = False
+        for i in range(0,int(x)-1):
+            if T[i]["age"] > T[i+1]["age"]:
+                aux = T[i]
+                T[i] = T[i+1]
+                T[i+1] = aux
+                test = True
+
+    print(T)
+
+        
+
+
+
+    
+
+        
 
 
 
@@ -144,7 +171,9 @@ elif choice == 2:
         x = count.read()
         numberOf(evax,x)
 elif choice == 3:
-    orderAge()
+    with open("count.txt","r") as count:
+        x = count.read()
+        orderAge(x)
 elif choice == 4:
     infected()
 else:
@@ -172,7 +201,9 @@ while choice != 5:
             x = count.read()
             numberOf(evax,x)
     elif choice == 3:
-        orderAge()
+        with open("count.txt","r") as count:
+            x = count.read()
+            orderAge(x)
     elif choice == 4:
         infected()
     else:
