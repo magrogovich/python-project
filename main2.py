@@ -138,9 +138,23 @@ def orderAge(x):
 
     print(T)
 
+    for i in range(0,int(x)):
+        with open ("file.dat","ab") as file:
+            dump(T[i],file)
+
         
 
 
+def infected(x):
+    J = []
+    with open ("file.dat","rb") as file:
+        for i in range(0,int(x)):
+            J.append(load(file))
+    print(J)
+    with open ("file.txt","a") as file:
+        for i in range(0,int(x)):
+            if J[i]["verif"].upper() == 'O':
+                file.write(J[i]["cin"]+"#"+J[i]["name"]+"#"+str(J[i]["age"])+"\n")
 
     
 
@@ -175,7 +189,9 @@ elif choice == 3:
         x = count.read()
         orderAge(x)
 elif choice == 4:
-    infected()
+        with open("count.txt","r") as count:
+            x = count.read()
+            infected(x)
 else:
     print("Good by")
 
@@ -205,7 +221,9 @@ while choice != 5:
             x = count.read()
             orderAge(x)
     elif choice == 4:
-        infected()
+        with open("count.txt","r") as count:
+            x = count.read()
+            infected(x)
     else:
         print("Good by")
 
