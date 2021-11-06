@@ -1,6 +1,4 @@
-from os import lseek, terminal_size
 from pickle import*
-from typing import Type
 
 
 evax = {
